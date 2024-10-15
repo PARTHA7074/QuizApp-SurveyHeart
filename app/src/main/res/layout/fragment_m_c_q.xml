@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_background"
+    tools:context=".fragments.MCQFragment"
+    android:padding="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Which one is not a nickname of a version of Andriod?"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/answerA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="A) Answer"
+        android:textSize="20sp"
+        android:textColor="#DFFFFFFF"
+        android:background="@drawable/outline_box"
+        android:padding="15dp"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_baseline_radio_button_unchecked_24_white"
+        android:focusable="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/answerB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="B) Answer"
+        android:textSize="20sp"
+        android:textColor="#DFFFFFFF"
+        android:background="@drawable/outline_box"
+        android:padding="15dp"
+        android:clickable="true"
+        android:drawableEnd="@drawable/ic_baseline_radio_button_unchecked_24_white"
+        android:focusable="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/answerC"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="C) Answer"
+        android:textSize="20sp"
+        android:textColor="#DFFFFFFF"
+        android:background="@drawable/outline_box"
+        android:padding="15dp"
+        android:drawableEnd="@drawable/ic_baseline_radio_button_unchecked_24_white"
+        android:focusable="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/answerD"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="D) Answer"
+        android:textSize="20sp"
+        android:textColor="#DFFFFFFF"
+        android:background="@drawable/outline_box"
+        android:padding="15dp"
+        android:drawableEnd="@drawable/ic_baseline_radio_button_unchecked_24_white"
+        android:focusable="true" />
+
+
+</LinearLayout>
