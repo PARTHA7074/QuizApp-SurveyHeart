@@ -11,6 +11,7 @@ import android.graphics.Color
 import com.partha.quizappsurveyheart.R
 import com.partha.quizappsurveyheart.databinding.FragmentMCQBinding
 import com.partha.quizappsurveyheart.pojos.Question
+import com.partha.quizappsurveyheart.viewModels.MCQViewModel
 
 class MCQFragment : Fragment() {
 

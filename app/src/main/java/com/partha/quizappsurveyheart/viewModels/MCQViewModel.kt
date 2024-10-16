@@ -1,8 +1,7 @@
-package com.partha.quizappsurveyheart.fragments
+package com.partha.quizappsurveyheart.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.MutableLiveData
 
 class MCQViewModel(private val state: SavedStateHandle) : ViewModel() {
 
