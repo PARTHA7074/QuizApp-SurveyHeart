@@ -17,6 +17,7 @@ class MCQFragment : Fragment() {
     private var _binding: FragmentMCQBinding? = null
     private val binding get() = _binding!!
     private var question: Question? = null
+    private var onAnswerSelectedListener: ((Boolean) -> Unit)? = null
     private val viewModel: MCQViewModel by viewModels()
 
     companion object {
@@ -82,10 +83,17 @@ class MCQFragment : Fragment() {
     }
 
     private fun setupOptionListeners() {
-        binding.option1.setOnClickListener { viewModel.onOptionSelected(0) }
-        binding.option2.setOnClickListener { viewModel.onOptionSelected(1) }
-        binding.option3.setOnClickListener { viewModel.onOptionSelected(2) }
-        binding.option4.setOnClickListener { viewModel.onOptionSelected(3) }
+        binding.option1.setOnClickListener { onOptionSelected(0) }
+        binding.option2.setOnClickListener { onOptionSelected(1) }
+        binding.option3.setOnClickListener { onOptionSelected(2) }
+        binding.option4.setOnClickListener { onOptionSelected(3) }
+    }
+
+    private fun onOptionSelected(index: Int) {
+        viewModel.onOptionSelected(index)
+        val selectedAnswer = viewModel.shuffledAnswers.value?.getOrNull(index) ?: ""
+        val isCorrect = selectedAnswer == question?.correctAnswer
+        onAnswerSelectedListener?.invoke(isCorrect)
     }
 
     private fun highlightSelectedOption(index: Int) {
@@ -110,6 +118,10 @@ class MCQFragment : Fragment() {
                 0
             )
         }
+    }
+
+    fun setOnAnswerSelectedListener(listener: (Boolean) -> Unit) {
+        onAnswerSelectedListener = listener
     }
 
     override fun onDestroyView() {

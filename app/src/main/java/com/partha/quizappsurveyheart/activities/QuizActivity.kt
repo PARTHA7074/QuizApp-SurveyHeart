@@ -23,6 +23,7 @@ class QuizActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -40,7 +41,6 @@ class QuizActivity : AppCompatActivity() {
             if (questions.isNullOrEmpty()) {
                 viewModel.fetchQuestions()
             } else {
-                // Display the current question, checking if fragment already exists
                 if (savedInstanceState == null) {
                     displayQuestion(questions, viewModel.currentQuestionIndex)
                 }
@@ -53,13 +53,18 @@ class QuizActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
         }
 
+        // Set up button listeners
+        setupButtonListeners()
+    }
+
+    private fun setupButtonListeners() {
         binding.nextBtn.setOnClickListener {
             viewModel.questionsLiveData.value?.let { questions ->
                 if (viewModel.currentQuestionIndex < questions.size - 1) {
                     viewModel.currentQuestionIndex++
                     displayQuestion(questions, viewModel.currentQuestionIndex)
                 } else {
-                    Toast.makeText(this, "End of Quiz!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Quiz Completed! Your Score: ${viewModel.score}", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -69,20 +74,27 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    // Updated display method to prevent fragment recreation on config change
     private fun displayQuestion(questions: List<Question?>, index: Int) {
         val fragmentTag = "MCQFragment_$index"
 
         // Check if fragment is already attached
         val existingFragment = supportFragmentManager.findFragmentByTag(fragmentTag)
 
+        // Load the fragment only if it does not exist already
         if (existingFragment == null) {
             questions.getOrNull(index)?.let { question ->
                 val fragment = MCQFragment.newInstance(question)
+                fragment.setOnAnswerSelectedListener { isCorrect ->
+                    if (isCorrect) {
+                        viewModel.score++
+                    }
+                }
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in, R.anim.fade_out)
                     .replace(R.id.fragmentContainerView, fragment, fragmentTag)
                     .commit()
+            } ?: run {
+                Toast.makeText(this, "Failed to load question.", Toast.LENGTH_SHORT).show()
             }
         }
     }

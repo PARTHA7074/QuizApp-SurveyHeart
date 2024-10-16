@@ -22,6 +22,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
 
     var currentQuestionIndex = 0
+    var score: Int = 0
 
 
     // Function to get questions from Retrofit Repository and store them in the database
