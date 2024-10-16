@@ -2,22 +2,22 @@ package com.partha.quizappsurveyheart.room
 
 import com.partha.quizappsurveyheart.pojos.Question
 
-class RoomRepository(private val dao: Dao) {
+class RoomRepository(private val quizDao: QuizDao) {
 
-    suspend fun getAllTasks(): List<Question>? {
-        return dao.getAllQuestion()
+    suspend fun getAllQuestions(): List<Question>? {
+        return quizDao.getAllQuestion()
     }
 
     suspend fun insert(task: Question) {
-        dao.insertTask(task)
+        quizDao.insertTask(task)
     }
 
     suspend fun clearAllQuestions() {
-        dao.clearAllQuestions()
+        quizDao.clearAllQuestions()
     }
 
     suspend fun insertQuestions(tasks: List<Question>) {
-        dao.insertQuestions(tasks)
+        quizDao.insertQuestions(tasks)
     }
 
 }

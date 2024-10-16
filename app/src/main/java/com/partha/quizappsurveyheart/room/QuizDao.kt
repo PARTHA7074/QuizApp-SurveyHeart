@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.partha.quizappsurveyheart.pojos.Question
 
 @Dao
-interface Dao {
+interface QuizDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Question)
 

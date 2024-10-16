@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/questionCounter"
+        android:id="@+id/screenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -31,32 +31,15 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressIndicator"
+    <View
+        android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginStart="18dp"
+        android:layout_height="3dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="18dp"
-        android:max="5"
-        android:progress="0"
+        android:background="#DCD1D7EF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionCounter" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:visibility="gone"
-        android:id="@+id/fragmentContainerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
+        app:layout_constraintTop_toBottomOf="@+id/screenName" />
 
     <TextView
         android:id="@+id/instruction"
@@ -71,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/separator"
         app:layout_constraintVertical_bias="0.26" />
 
     <com.google.android.material.button.MaterialButton
@@ -86,29 +69,6 @@
         app:layout_constraintTop_toBottomOf="@+id/instruction"
         app:layout_constraintVertical_bias="0.32999998" />
 
-    <com.google.android.material.button.MaterialButton
-        android:visibility="gone"
-        android:id="@+id/quitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Quit Quiz"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/nextBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="30dp"
-        android:text="Next"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

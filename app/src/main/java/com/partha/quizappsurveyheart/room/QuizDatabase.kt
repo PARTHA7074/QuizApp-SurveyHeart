@@ -9,20 +9,20 @@ import com.partha.quizappsurveyheart.pojos.Question
 
 @Database(entities = [Question::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
-abstract class RoomDatabase : RoomDatabase() {
+abstract class QuizDatabase : RoomDatabase() {
 
-    abstract fun dao(): Dao
+    abstract fun QuizDao(): QuizDao
 
     companion object {
         @Volatile
-        private var INSTANCE: RoomDatabase? = null
+        private var INSTANCE: QuizDatabase? = null
 
-        fun getDatabase(context: Context): RoomDatabase {
+        fun getDatabase(context: Context): QuizDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    RoomDatabase::class.java,
-                    "question_database"
+                    QuizDatabase::class.java,
+                    "quiz_database"
                 ).build()
                 INSTANCE = instance
                 instance

@@ -1,8 +1,10 @@
 package com.partha.quizappsurveyheart.pojos
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class Questions(
 
@@ -13,6 +15,7 @@ data class Questions(
 	val results: List<Question?>? = null
 )
 
+@Parcelize
 @Entity(tableName = "Question")
 data class Question(
 
@@ -29,11 +32,11 @@ data class Question(
 	val correctAnswer: String? = null,
 
 	@field:SerializedName("incorrect_answers")
-	val incorrectAnswers: List<String?>? = null,
+	val incorrectAnswers: List<String>? = null,
 
 	@field:SerializedName("type")
 	val type: String? = null,
 
 	@field:SerializedName("category")
 	val category: String? = null
-)
+) : Parcelable
