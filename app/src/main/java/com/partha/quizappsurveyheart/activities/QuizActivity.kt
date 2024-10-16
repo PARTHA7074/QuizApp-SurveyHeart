@@ -20,6 +20,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizBinding
     private val viewModel: QuizViewModel by viewModels()
     private var countDownTimer: CountDownTimer? = null
+    private var isNavigatedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +112,7 @@ class QuizActivity : AppCompatActivity() {
             if (remainingTime > 0) {
                 startCountDownTimer(remainingTime)
             } else {
-                finishQuiz()
+                if (!isNavigatedOnce) finishQuiz()
             }
         }
     }
@@ -137,6 +138,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun finishQuiz() {
+        isNavigatedOnce = true
         countDownTimer?.cancel()
         navigateToScoreActivity()
     }

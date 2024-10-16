@@ -25,7 +25,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     var currentQuestionIndex = 0
     var score: Int = 0
     private var quizEndTime: Long = 0L
-    val quizDuration: Long = 10 * 60 * 1000 // 10 minutes in milliseconds
+    val quizDuration: Long = 5 * 60 * 1000 // 5 minutes in milliseconds
 
     init {
         if (quizEndTime == 0L) {
