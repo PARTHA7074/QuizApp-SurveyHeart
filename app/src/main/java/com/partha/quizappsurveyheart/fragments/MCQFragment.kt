@@ -118,6 +118,14 @@ class MCQFragment : Fragment() {
                 0
             )
         }
+        disableOptions()
+    }
+
+    private fun disableOptions() {
+        binding.option1.isEnabled = false
+        binding.option2.isEnabled = false
+        binding.option3.isEnabled = false
+        binding.option4.isEnabled = false
     }
 
     fun setOnAnswerSelectedListener(listener: (Boolean) -> Unit) {

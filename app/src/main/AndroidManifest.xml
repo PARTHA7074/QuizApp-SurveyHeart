@@ -15,6 +15,9 @@
         android:theme="@style/Theme.QuizAppSurveyHeart"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ScoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.QuizActivity"
             android:exported="false" />
         <activity

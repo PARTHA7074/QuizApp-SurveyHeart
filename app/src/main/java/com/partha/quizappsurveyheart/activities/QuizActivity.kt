@@ -1,5 +1,6 @@
 package com.partha.quizappsurveyheart.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
@@ -65,11 +66,12 @@ class QuizActivity : AppCompatActivity() {
     private fun setupButtonListeners() {
         binding.nextBtn.setOnClickListener {
             viewModel.questionsLiveData.value?.let { questions ->
-                if (viewModel.currentQuestionIndex < questions.size - 1) {
+                if (viewModel.currentQuestionIndex < questions.size-1) {
                     viewModel.currentQuestionIndex++
                     displayQuestion(questions, viewModel.currentQuestionIndex)
+                    if (viewModel.currentQuestionIndex == questions.size - 1) binding.nextBtn.text = "Submit"
                 } else {
-                    Toast.makeText(this, "Quiz Completed! Your Score: ${viewModel.score}", Toast.LENGTH_LONG).show()
+                    finishQuiz()
                 }
             }
         }
@@ -136,7 +138,15 @@ class QuizActivity : AppCompatActivity() {
 
     private fun finishQuiz() {
         countDownTimer?.cancel()
-        Toast.makeText(this, "Time's up! Quiz Completed! Your Score: ${viewModel.score}", Toast.LENGTH_LONG).show()
+        navigateToScoreActivity()
+    }
+
+    private fun navigateToScoreActivity() {
+        val intent = Intent(this, ScoreActivity::class.java).apply {
+            putExtra("SCORE", viewModel.score)
+            putExtra("TOTAL", viewModel.questionsLiveData.value?.size ?: 0)
+        }
+        startActivity(intent)
         finish()
     }
 
