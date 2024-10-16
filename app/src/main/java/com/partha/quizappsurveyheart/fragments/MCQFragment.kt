@@ -1,5 +1,6 @@
 package com.partha.quizappsurveyheart.fragments
 
+import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,7 +19,7 @@ class MCQFragment : Fragment() {
     private var _binding: FragmentMCQBinding? = null
     private val binding get() = _binding!!
     private var question: Question? = null
-    private var onAnswerSelectedListener: ((Boolean) -> Unit)? = null
+    private var onAnswerSelectedListener: OnAnswerSelectedListener? = null
     private val viewModel: MCQViewModel by viewModels()
 
     companion object {
@@ -94,7 +95,7 @@ class MCQFragment : Fragment() {
         viewModel.onOptionSelected(index)
         val selectedAnswer = viewModel.shuffledAnswers.value?.getOrNull(index) ?: ""
         val isCorrect = selectedAnswer == question?.correctAnswer
-        onAnswerSelectedListener?.invoke(isCorrect)
+        onAnswerSelectedListener?.onAnswerSelected(isCorrect)
     }
 
     private fun highlightSelectedOption(index: Int) {
@@ -129,12 +130,24 @@ class MCQFragment : Fragment() {
         binding.option4.isEnabled = false
     }
 
-    fun setOnAnswerSelectedListener(listener: (Boolean) -> Unit) {
-        onAnswerSelectedListener = listener
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnAnswerSelectedListener) {
+            onAnswerSelectedListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onAnswerSelectedListener = null
+    }
+}
+
+interface OnAnswerSelectedListener {
+    fun onAnswerSelected(isCorrect: Boolean)
 }

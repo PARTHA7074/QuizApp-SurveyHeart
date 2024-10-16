@@ -13,10 +13,11 @@ import androidx.core.view.isVisible
 import com.partha.quizappsurveyheart.R
 import com.partha.quizappsurveyheart.databinding.ActivityQuizBinding
 import com.partha.quizappsurveyheart.fragments.MCQFragment
+import com.partha.quizappsurveyheart.fragments.OnAnswerSelectedListener
 import com.partha.quizappsurveyheart.pojos.Question
 import com.partha.quizappsurveyheart.viewModels.QuizViewModel
 
-class QuizActivity : AppCompatActivity() {
+class QuizActivity : AppCompatActivity(), OnAnswerSelectedListener {
     private lateinit var binding: ActivityQuizBinding
     private val viewModel: QuizViewModel by viewModels()
     private var countDownTimer: CountDownTimer? = null
@@ -49,6 +50,7 @@ class QuizActivity : AppCompatActivity() {
                     displayQuestion(questions, viewModel.currentQuestionIndex)
                 }
             }
+            if (viewModel.currentQuestionIndex == questions?.size?.minus(1)) binding.nextBtn.text = "Submit"
         }
 
         // Observe LiveData for error messages
@@ -92,11 +94,6 @@ class QuizActivity : AppCompatActivity() {
         if (existingFragment == null) {
             questions.getOrNull(index)?.let { question ->
                 val fragment = MCQFragment.newInstance(question)
-                fragment.setOnAnswerSelectedListener { isCorrect ->
-                    if (isCorrect) {
-                        viewModel.score++
-                    }
-                }
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in, R.anim.fade_out)
                     .replace(R.id.fragmentContainerView, fragment, fragmentTag)
@@ -155,5 +152,11 @@ class QuizActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.updateRemainingTime()
+    }
+
+    override fun onAnswerSelected(isCorrect: Boolean) {
+        if (isCorrect) {
+            viewModel.score++
+        }
     }
 }
