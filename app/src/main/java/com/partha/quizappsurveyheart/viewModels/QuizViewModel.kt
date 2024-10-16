@@ -20,9 +20,24 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
 
     val questionsLiveData: MutableLiveData<List<Question?>?> = MutableLiveData()
     val errorMessage: MutableLiveData<String> = MutableLiveData()
+    val remainingTimeLiveData: MutableLiveData<Long> = MutableLiveData()
 
     var currentQuestionIndex = 0
     var score: Int = 0
+    private var quizEndTime: Long = 0L
+    val quizDuration: Long = 10 * 60 * 1000 // 10 minutes in milliseconds
+
+    init {
+        if (quizEndTime == 0L) {
+            quizEndTime = System.currentTimeMillis() + (quizDuration)
+        }
+        updateRemainingTime()
+    }
+
+    fun updateRemainingTime() {
+        val remainingTime = quizEndTime - System.currentTimeMillis()
+        remainingTimeLiveData.postValue(remainingTime)
+    }
 
 
     // Function to get questions from Retrofit Repository and store them in the database
